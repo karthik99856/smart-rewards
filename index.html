@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Loyalty Card</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel for JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body class="bg-stone-50 text-stone-900 font-sans min-h-screen flex flex-col justify-between">
@@ -18,6 +21,7 @@
             const [mobile, setMobile] = React.useState('');
             const [pin, setPin] = React.useState('');
             const [mobileError, setMobileError] = React.useState('');
+            
             const [secretInput, setSecretInput] = React.useState('');
             const [adminPinConfig, setAdminPinConfig] = React.useState('99885656800');
             const [currentAdminPassword, setCurrentAdminPassword] = React.useState('');
@@ -26,7 +30,7 @@
             const [config, setConfig] = React.useState(() => {
                 const saved = localStorage.getItem('loyalty_master_config');
                 return saved ? JSON.parse(saved) : {
-                    brandName: "Digital Loyalty Card",
+                    brandName: "The Copper Skillet",
                     heroBadgeText: "10 stamps = Free Reward",
                     heroTitle: "Craft food, warm welcome — every visit counts.",
                     heroSubtitle: "Collect a stamp on every visit, and your 10th one is on us.",
@@ -61,7 +65,7 @@
             const handleCustomerLogin = (e) => {
                 e.preventDefault();
                 if (!validateMobile(mobile)) {
-                    setMobileError('Please enter a valid mobile number.');
+                    setMobileError('Please enter a valid mobile number starting with 6, 7, 8, or 9.');
                     return;
                 }
                 if (!pin || pin.length !== 4) {
@@ -149,6 +153,7 @@
                             <img src={config.logoUrl} alt="Logo" className="w-10 h-10 rounded-full object-cover border"/>
                             <div>
                                 <span className="text-sm font-bold block text-stone-900">{config.brandName}</span>
+                                <span className="text-xs text-stone-500 block">Digital Loyalty Card</span>
                             </div>
                         </div>
                         <div>
@@ -195,7 +200,6 @@
                                                 <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-stone-400">📞</span>
                                                 <input 
                                                     type="tel" 
-                                                    inputMode="numeric"
                                                     placeholder="10-digit mobile number" 
                                                     value={mobile} 
                                                     onChange={(e) => setMobile(e.target.value.replace(/\D/g, '').slice(0, 10))}
@@ -211,7 +215,6 @@
                                             <label className="text-xs font-bold uppercase tracking-wider text-stone-600">4-Digit PIN</label>
                                             <input 
                                                 type="password" 
-                                                inputMode="numeric"
                                                 placeholder="Enter 4-digit PIN" 
                                                 value={pin} 
                                                 onChange={(e) => setPin(e.target.value.replace(/\D/g, '').slice(0, 4))}
@@ -242,7 +245,6 @@
                                 <p className="text-xs text-stone-500">Enter your secure passcode:</p>
                                 <input 
                                     type="password" 
-                                    inputMode="numeric"
                                     placeholder="Enter Passcode..." 
                                     value={secretInput} 
                                     onChange={(e) => setSecretInput(e.target.value)}

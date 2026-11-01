@@ -19,14 +19,14 @@
             const [pin, setPin] = React.useState('');
             const [mobileError, setMobileError] = React.useState('');
             const [secretInput, setSecretInput] = React.useState('');
-            const [adminPinConfig, setAdminPinConfig] = React.useState('9985656800');
+            const [adminPinConfig, setAdminPinConfig] = React.useState('99885656800');
             const [currentAdminPassword, setCurrentAdminPassword] = React.useState('');
             const [newAdminPassword, setNewAdminPassword] = React.useState('');
 
             const [config, setConfig] = React.useState(() => {
                 const saved = localStorage.getItem('loyalty_master_config');
                 return saved ? JSON.parse(saved) : {
-                    brandName: "The Copper Skillet",
+                    brandName: "Digital Loyalty Card",
                     heroBadgeText: "10 stamps = Free Reward",
                     heroTitle: "Craft food, warm welcome — every visit counts.",
                     heroSubtitle: "Collect a stamp on every visit, and your 10th one is on us.",
@@ -61,7 +61,7 @@
             const handleCustomerLogin = (e) => {
                 e.preventDefault();
                 if (!validateMobile(mobile)) {
-                    setMobileError('Please enter a valid mobile number starting with 6, 7, 8, or 9.');
+                    setMobileError('Please enter a valid mobile number.');
                     return;
                 }
                 if (!pin || pin.length !== 4) {
@@ -149,7 +149,6 @@
                             <img src={config.logoUrl} alt="Logo" className="w-10 h-10 rounded-full object-cover border"/>
                             <div>
                                 <span className="text-sm font-bold block text-stone-900">{config.brandName}</span>
-                                <span className="text-xs text-stone-500 block">Digital Loyalty Card</span>
                             </div>
                         </div>
                         <div>

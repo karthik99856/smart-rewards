@@ -99,10 +99,17 @@
             };
 
             const resetCard = (mob) => {
-                setCustomers(prev => ({
-                    ...prev,
-                    [mob]: { ...prev[mob], stamps: 0, history: [...prev[mob].history, { date: new Date().toLocaleString(), delta: 'Reset' }] }
-                }));
+                setCustomers(prev => {
+                    const updated = { ...prev };
+                    if (updated[mob]) {
+                        updated[mob] = { 
+                            ...updated[mob], 
+                            stamps: 0, 
+                            history: [...updated[mob].history, { date: new Date().toLocaleString(), delta: 'Reset' }] 
+                        };
+                    }
+                    return updated;
+                });
             };
 
             const deleteCustomer = (mob) => {

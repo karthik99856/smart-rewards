@@ -61,7 +61,7 @@
             const handleCustomerLogin = (e) => {
                 e.preventDefault();
                 if (!validateMobile(mobile)) {
-                    setMobileError('Please enter a valid mobile number.');
+                    setMobileError('Please enter a valid mobile number starting with 6, 7, 8, or 9.');
                     return;
                 }
                 if (!pin || pin.length !== 4) {
@@ -140,17 +140,6 @@
                 setCurrentAdminPassword('');
                 setNewAdminPassword('');
                 alert('Admin password successfully updated!');
-            };
-
-            const handleImageUpload = (e, key) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                        setConfig(prev => ({ ...prev, [key]: reader.result }));
-                    };
-                    reader.readAsDataURL(file);
-                }
             };
 
             return (
@@ -271,7 +260,7 @@
                                 <div className="bg-gradient-to-r from-orange-600 to-amber-600 text-white p-6 relative">
                                     <div className="flex justify-between items-start mb-4">
                                         <div>
-                                            <h2 className="text-xl font-bold">{config.brandName}</h2>
+                                            <h2 className="text-xl font-bold">My Loyalty Card</h2>
                                             <p className="text-xs text-orange-100 mt-0.5">One stamp per visit — 10 stamps unlock your free reward.</p>
                                         </div>
                                         <button onClick={() => setView('home')} className="text-xs font-semibold bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg backdrop-blur-sm transition">
@@ -361,8 +350,7 @@
                                     <h3 className="text-xs font-bold uppercase tracking-wider text-stone-600">Change Admin Password</h3>
                                     <form onSubmit={handleUpdateAdminPassword} className="space-y-2">
                                         <input 
-                                            type="password"
-                                            inputMode="numeric" 
+                                            type="password" 
                                             placeholder="Current Admin Password" 
                                             value={currentAdminPassword} 
                                             onChange={(e) => setCurrentAdminPassword(e.target.value)}
@@ -370,8 +358,7 @@
                                             required
                                         />
                                         <input 
-                                            type="password"
-                                            inputMode="numeric" 
+                                            type="password" 
                                             placeholder="New Admin Password (min 10 digits)" 
                                             value={newAdminPassword} 
                                             onChange={(e) => setNewAdminPassword(e.target.value)}
@@ -433,8 +420,8 @@
                                         <input type="text" value={config.brandName} onChange={(e) => setConfig({...config, brandName: e.target.value})} className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm"/>
                                     </div>
                                     <div>
-                                        <label className="text-xs font-semibold text-stone-600">Upload New Logo</label>
-                                        <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'logoUrl')} className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm"/>
+                                        <label className="text-xs font-semibold text-stone-600">Logo Image URL</label>
+                                        <input type="text" value={config.logoUrl} onChange={(e) => setConfig({...config, logoUrl: e.target.value})} className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm"/>
                                     </div>
                                     <div>
                                         <label className="text-xs font-semibold text-stone-600">Hero Title</label>
@@ -449,8 +436,8 @@
                                         <input type="text" value={config.heroBadgeText} onChange={(e) => setConfig({...config, heroBadgeText: e.target.value})} className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm"/>
                                     </div>
                                     <div>
-                                        <label className="text-xs font-semibold text-stone-600">Upload New Hero Background</label>
-                                        <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'heroBgUrl')} className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm"/>
+                                        <label className="text-xs font-semibold text-stone-600">Hero Background Image URL</label>
+                                        <input type="text" value={config.heroBgUrl} onChange={(e) => setConfig({...config, heroBgUrl: e.target.value})} className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm"/>
                                     </div>
                                     <div>
                                         <label className="text-xs font-semibold text-stone-600">Footer Text</label>
@@ -464,33 +451,6 @@
                                         <label className="text-xs font-semibold text-stone-600">Reward Icon</label>
                                         <input type="text" value={config.rewardIcon || '🎁'} onChange={(e) => setConfig({...config, rewardIcon: e.target.value})} className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm"/>
                                     </div>
-                                </div>
-
-                                <div className="border-t pt-4 space-y-3">
-                                    <h3 className="text-xs font-bold uppercase tracking-wider text-stone-600">Change Admin Password</h3>
-                                    <form onSubmit={handleUpdateAdminPassword} className="space-y-2">
-                                        <input 
-                                            type="password"
-                                            inputMode="numeric" 
-                                            placeholder="Current Admin Password" 
-                                            value={currentAdminPassword} 
-                                            onChange={(e) => setCurrentAdminPassword(e.target.value)}
-                                            className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs"
-                                            required
-                                        />
-                                        <input 
-                                            type="password"
-                                            inputMode="numeric" 
-                                            placeholder="New Admin Password (min 10 digits)" 
-                                            value={newAdminPassword} 
-                                            onChange={(e) => setNewAdminPassword(e.target.value)}
-                                            className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs"
-                                            required
-                                        />
-                                        <button type="submit" className="w-full bg-stone-900 text-white p-2.5 rounded-xl text-xs font-bold hover:bg-stone-800">
-                                            Update Password
-                                        </button>
-                                    </form>
                                 </div>
                             </div>
                         )}

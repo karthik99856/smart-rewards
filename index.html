@@ -62,7 +62,7 @@
             const handleCustomerLogin = (e) => {
                 e.preventDefault();
                 if (!validateMobile(mobile)) {
-                    setMobileError('Please enter a valid mobile number starting with 6, 7, 8, or 9.');
+                    setMobileError('Please enter a valid mobile number.');
                     return;
                 }
                 if (!pin || pin.length !== 4) {

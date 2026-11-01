@@ -437,6 +437,50 @@
                                 </div>
 
                                 <div className="space-y-3 max-h-96 overflow-y-auto pr-1 border-t pt-4">
+                                    <h3 className="text-xs font-bold uppercase tracking-wider text-stone-600">Content Configuration</h3>
+                                    <div>
+                                        <label className="text-xs font-semibold text-stone-600">Brand Name</label>
+                                        <input type="text" value={config.brandName} onChange={(e) => setConfig({...config, brandName: e.target.value})} className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm"/>
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-semibold text-stone-600">Upload New Logo</label>
+                                        <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'logoUrl')} className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm"/>
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-semibold text-stone-600">Card Description</label>
+                                        <input type="text" value={config.cardDescription} onChange={(e) => setConfig({...config, cardDescription: e.target.value})} className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm"/>
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-semibold text-stone-600">Hero Title</label>
+                                        <input type="text" value={config.heroTitle} onChange={(e) => setConfig({...config, heroTitle: e.target.value})} className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm"/>
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-semibold text-stone-600">Hero Subtitle</label>
+                                        <input type="text" value={config.heroSubtitle} onChange={(e) => setConfig({...config, heroSubtitle: e.target.value})} className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm"/>
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-semibold text-stone-600">Hero Badge Text</label>
+                                        <input type="text" value={config.heroBadgeText} onChange={(e) => setConfig({...config, heroBadgeText: e.target.value})} className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm"/>
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-semibold text-stone-600">Upload New Hero Background</label>
+                                        <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'heroBgUrl')} className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm"/>
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-semibold text-stone-600">Footer Text</label>
+                                        <input type="text" value={config.footerText} onChange={(e) => setConfig({...config, footerText: e.target.value})} className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm"/>
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-semibold text-stone-600">Stamp Icon</label>
+                                        <input type="text" value={config.stampIcon || '★'} onChange={(e) => setConfig({...config, stampIcon: e.target.value})} className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm"/>
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-semibold text-stone-600">Reward Icon</label>
+                                        <input type="text" value={config.rewardIcon || '🎁'} onChange={(e) => setConfig({...config, rewardIcon: e.target.value})} className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm"/>
+                                    </div>
+                                </div>
+
+                                <div className="border-t pt-4 space-y-3">
                                     <h3 className="text-xs font-bold uppercase tracking-wider text-stone-600">Change Admin Password</h3>
                                     <form onSubmit={handleUpdateAdminPassword} className="space-y-2">
                                         <input 

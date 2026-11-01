@@ -23,7 +23,7 @@
             const [mobileError, setMobileError] = React.useState('');
             
             const [secretInput, setSecretInput] = React.useState('');
-            const [adminPinConfig, setAdminPinConfig] = React.useState('7013');
+            const [adminPinConfig, setAdminPinConfig] = React.useState('99885656800');
             const [currentAdminPassword, setCurrentAdminPassword] = React.useState('');
             const [newAdminPassword, setNewAdminPassword] = React.useState('');
 
@@ -42,11 +42,7 @@
 
             const [customers, setCustomers] = React.useState(() => {
                 const saved = localStorage.getItem('loyalty_customers');
-                return saved ? JSON.parse(saved) : {
-                    "9876543210": { pin: "1234", stamps: 4, history: [] },
-                    "9988776655": { pin: "5678", stamps: 8, history: [] },
-                    "9123456780": { pin: "9999", stamps: 10, history: [] }
-                };
+                return saved ? JSON.parse(saved) : {};
             });
 
             const [searchTerm, setSearchTerm] = React.useState('');
@@ -64,16 +60,6 @@
                 return regex.test(num);
             };
 
-            const handleMobileChange = (e) => {
-                const val = e.target.value.replace(/\D/g, '').slice(0, 10);
-                setMobile(val);
-                if (val.length > 0 && !validateMobile(val)) {
-                    setMobileError('Please enter a valid mobile number starting with 6, 7, 8, or 9.');
-                } else {
-                    setMobileError('');
-                }
-            };
-
             const handleCustomerLogin = (e) => {
                 e.preventDefault();
                 if (!validateMobile(mobile)) {
@@ -84,6 +70,8 @@
                     alert('Please enter a valid 4-digit PIN.');
                     return;
                 }
+                setMobileError('');
+                
                 if (!customers[mobile]) {
                     setCustomers(prev => ({
                         ...prev,
@@ -92,19 +80,6 @@
                 } else if (customers[mobile].pin !== pin) {
                     alert('Incorrect PIN! Please try again.');
                     return;
-                }
-                setView('userDashboard');
-            };
-
-            const loadDemoNumber = (num, demoPin) => {
-                setMobile(num);
-                setPin(demoPin);
-                setMobileError('');
-                if (!customers[num]) {
-                    setCustomers(prev => ({
-                        ...prev,
-                        [num]: { pin: demoPin, stamps: 3, history: [] }
-                    }));
                 }
                 setView('userDashboard');
             };
@@ -171,7 +146,6 @@
 
             return (
                 <div className="min-h-screen flex flex-col justify-between bg-stone-100">
-                    {/* Header with single Admin button */}
                     <header className="bg-white border-b px-6 py-3 flex justify-between items-center shadow-sm">
                         <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setView('home')}>
                             <img src={config.logoUrl} alt="Logo" className="w-10 h-10 rounded-full object-cover border"/>
@@ -194,7 +168,6 @@
                     <main className="flex-grow flex items-center justify-center p-4">
                         {view === 'home' && (
                             <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 bg-white rounded-2xl shadow-xl overflow-hidden border border-stone-200">
-                                {/* Left Side: Banner */}
                                 <div className="relative bg-stone-900 min-h-[300px] md:min-h-[500px] bg-cover bg-center flex flex-col justify-between p-8 text-white" style={{ backgroundImage: `url(${config.heroBgUrl})` }}>
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                                     <div className="relative z-10 flex items-center space-x-3">
@@ -210,7 +183,6 @@
                                     </div>
                                 </div>
 
-                                {/* Right Side: Customer Login */}
                                 <div className="p-8 md:p-12 flex flex-col justify-center space-y-6 bg-white">
                                     <div className="space-y-2">
                                         <h2 className="text-2xl font-bold text-stone-900">Welcome Back</h2>
@@ -228,16 +200,13 @@
                                                     type="tel" 
                                                     placeholder="10-digit mobile number" 
                                                     value={mobile} 
-                                                    onChange={handleMobileChange}
+                                                    onChange={(e) => setMobile(e.target.value.replace(/\D/g, '').slice(0, 10))}
                                                     className="w-full pl-10 pr-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition"
                                                     maxLength="10"
                                                     required
                                                 />
                                             </div>
-                                            <div className="flex justify-between items-center text-[11px] text-stone-400 px-1">
-                                                <span>{mobile.length}/10 digits</span>
-                                                {mobileError && <span className="text-red-500 font-semibold">{mobileError}</span>}
-                                            </div>
+                                            {mobileError && <span className="text-red-500 text-[11px] font-semibold px-1">{mobileError}</span>}
                                         </div>
 
                                         <div className="space-y-1">
@@ -261,22 +230,6 @@
                                             <span>→</span>
                                         </button>
                                     </form>
-
-                                    {/* Demo numbers */}
-                                    <div className="space-y-2 pt-2 border-t border-stone-100">
-                                        <span className="text-[11px] font-bold uppercase tracking-wider text-stone-400">Try a demo card</span>
-                                        <div className="grid grid-cols-3 gap-2">
-                                            <button onClick={() => loadDemoNumber('9876543210', '1234')} className="p-2 text-xs font-medium bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg border border-stone-200 transition">
-                                                98765 43210
-                                            </button>
-                                            <button onClick={() => loadDemoNumber('9988776655', '5678')} className="p-2 text-xs font-medium bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg border border-stone-200 transition">
-                                                99887 76655
-                                            </button>
-                                            <button onClick={() => loadDemoNumber('9123456780', '9999')} className="p-2 text-xs font-medium bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg border border-stone-200 transition">
-                                                91234 56780
-                                            </button>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         )}
